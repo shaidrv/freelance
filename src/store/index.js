@@ -25,6 +25,11 @@ export default createStore({
   },
   actions: {
     async createTask({ commit }, task) {
+      if (new Date(task.date) >= new Date()) {
+        task.status = 'active'
+      } else {
+        task.status = 'cancelled'
+      }
       const response = await fetch(
         'https://tasks-ae30f-default-rtdb.firebaseio.com/tasks.json',
         {
@@ -38,6 +43,7 @@ export default createStore({
       const firebaseData = await response.json()
       const id = firebaseData.name
       task.id = id
+
       commit('createTask', task)
     },
   },
