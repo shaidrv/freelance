@@ -14,7 +14,7 @@
           </small>
         </strong>
       </p>
-      <button class="btn primary">Посмотреть</button>
+      <button class="btn primary" @click="open(task.id)">Посмотреть</button>
     </div>
   </template>
 </template>
@@ -29,6 +29,11 @@ export default {
     },
     activeTasksCount() {
       return this.$store.getters.activeTasksCount
+    },
+  },
+  methods: {
+    open(id) {
+      router.push('/task/:id')
     },
   },
   components: { AppStatus },
