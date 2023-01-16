@@ -39,8 +39,9 @@ export default {
     },
   },
   methods: {
-    submit() {
-      this.$store.dispatch('createTask', this.task)
+    async submit() {
+      await this.$store.dispatch('createTask', this.task)
+      this.$router.push('/')
     },
   },
 }
