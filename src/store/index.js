@@ -2,7 +2,12 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    tasks: [],
+    tasks: [
+      {
+        title: 'test',
+        id: 1,
+      },
+    ],
   },
   getters: {
     tasks(state) {
@@ -11,6 +16,7 @@ export default createStore({
     activeTasksCount(state) {
       return state.tasks.filter((task) => task.status === 'active').length
     },
+    taskById() {},
   },
   mutations: {
     createTask(state, task) {
@@ -18,7 +24,20 @@ export default createStore({
     },
   },
   actions: {
-    createTask({ commit }, task) {
+    async createTask({ commit }, task) {
+      const response = await fetch(
+        'https://tasks-ae30f-default-rtdb.firebaseio.com/tasks.json',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(task),
+        }
+      )
+      const firebaseData = await response.json()
+      const id = firebaseData.name
+      task.id = id
       commit('createTask', task)
     },
   },
