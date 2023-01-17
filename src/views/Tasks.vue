@@ -31,6 +31,9 @@ export default {
       return this.$store.getters.activeTasksCount
     },
   },
+  mounted() {
+    this.$store.dispatch('loadTasks')
+  },
   methods: {
     open(id) {
       router.push('/task/:id')
