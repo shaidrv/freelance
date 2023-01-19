@@ -66,7 +66,7 @@ export default createStore({
     async changeStatus({ commit, getters }, payload) {
       commit('changeStatus', payload)
       const task = getters.taskById(payload.id)
-      const response = await fetch(
+      await fetch(
         `https://tasks-ae30f-default-rtdb.firebaseio.com/tasks/${payload.id}.json`,
         {
           method: 'PUT',
