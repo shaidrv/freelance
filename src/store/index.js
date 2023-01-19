@@ -11,8 +11,8 @@ export default createStore({
     activeTasksCount(state) {
       return state.tasks.filter((task) => task.status === 'active').length
     },
-    task: (state) => (id) => {
-      return state.tasks.find((task) => task.id === id)
+    taskById(_, getters) {
+      return (id) => getters.tasks.find((task) => task.id === id)
     },
   },
   mutations: {
@@ -65,8 +65,7 @@ export default createStore({
     },
     async changeStatus({ commit, getters }, payload) {
       commit('changeStatus', payload)
-      const task = getters.task(payload.id)
-      console.log(task)
+      const task = getters.taskById(payload.id)
       const response = await fetch(
         `https://tasks-ae30f-default-rtdb.firebaseio.com/tasks/${payload.id}.json`,
         {
@@ -77,8 +76,6 @@ export default createStore({
           body: JSON.stringify(task),
         }
       )
-      const data = await response.json()
     },
   },
-  modules: {},
 })

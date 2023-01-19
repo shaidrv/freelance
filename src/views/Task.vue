@@ -29,7 +29,7 @@ import AppStatus from '../components/AppStatus'
 export default {
   computed: {
     task() {
-      return this.$store.getters.task(this.id)
+      return this.$store.getters.taskById(this.id)
     },
     id() {
       return this.$route.params.id
