@@ -36,7 +36,7 @@ export default {
   },
   methods: {
     open(id) {
-      router.push('/task/:id')
+      this.$router.push('/task/' + id)
     },
   },
   components: { AppStatus },

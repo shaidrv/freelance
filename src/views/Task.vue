@@ -7,9 +7,15 @@
     </p>
     <p><strong>Описание</strong>: {{ task.description }}</p>
     <div>
-      <button class="btn">Взять в работу</button>
-      <button class="btn primary">Завершить</button>
-      <button class="btn danger">Отменить</button>
+      <button class="btn" @click="changeStatus('pending')">
+        Взять в работу
+      </button>
+      <button class="btn primary" @click="changeStatus('done')">
+        Завершить
+      </button>
+      <button class="btn danger" @click="changeStatus('cancelled')">
+        Отменить
+      </button>
     </div>
   </div>
   <h3 class="text-white center" v-else>
@@ -23,7 +29,15 @@ import AppStatus from '../components/AppStatus'
 export default {
   computed: {
     task() {
-      return this.$store.getters.taskById
+      return this.$store.getters.task(this.id)
+    },
+    id() {
+      return this.$route.params.id
+    },
+  },
+  methods: {
+    changeStatus(status) {
+      this.$store.dispatch('changeStatus', { status: status, id: this.id })
     },
   },
   components: { AppStatus },

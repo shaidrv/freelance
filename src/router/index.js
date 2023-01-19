@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Tasks from '../views/Tasks'
 import New from '../views/New'
-import Task from '../views/New'
+import Task from '../views/Task'
 
 const routes = [
   {
